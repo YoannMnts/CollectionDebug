@@ -9,8 +9,6 @@ namespace CollectionDebugger.Editor
 {
     public class CollectionDebugWindow : EditorWindow
     {
-        // Palette cohérente avec l'éditeur Unity dark theme
-        private static readonly Color ColorKeyLabel    = new(0.5f, 0.8f, 1f);
         private static readonly Color ColorSectionLive = new(0.3f, 0.7f, 0.4f);
         private static readonly Color ColorSectionSnap = new(0.8f, 0.6f, 0.2f);
         private static readonly Color ColorSeparator   = new(0.2f, 0.2f, 0.2f);
@@ -46,7 +44,6 @@ namespace CollectionDebugger.Editor
             var left = new VisualElement();
             left.style.backgroundColor = new Color(0.13f, 0.13f, 0.13f);
 
-            // Header panneau gauche
             var header = new Label("WATCHES");
             header.style.fontSize = 10;
             header.style.color = new Color(0.5f, 0.5f, 0.5f);
@@ -56,7 +53,6 @@ namespace CollectionDebugger.Editor
             header.style.letterSpacing = 1.5f;
             left.Add(header);
 
-            // Séparateur
             left.Add(BuildHorizontalSeparator());
 
             watchListView = new ListView
@@ -189,10 +185,8 @@ namespace CollectionDebugger.Editor
             liveFoldout = BuildFoldout(selectedWatch.Label, 0, ColorSectionLive, false);
             rightPanel.Add(liveFoldout);
 
-            // Header snapshots toujours présent
             rightPanel.Add(BuildSectionHeader("SNAPSHOTS", ColorSectionSnap));
 
-            // Snapshots existants au moment du rebuild
             var snapshots = CollectionDebug.GetSnapshot();
             foreach (var snapshot in snapshots)
             {
@@ -213,7 +207,6 @@ namespace CollectionDebugger.Editor
 
             var snapshots = CollectionDebug.GetSnapshot();
 
-            // Compte uniquement les snapshots du watch actuel
             int relevantCount = 0;
             foreach (var snapshot in snapshots)
             {
@@ -251,14 +244,12 @@ namespace CollectionDebugger.Editor
             drawnSnapshots.Clear();
         }
 
-        // --- Builders UI ---
 
         private static Foldout BuildFoldout(string label, int count, Color accentColor, bool expanded)
         {
             var foldout = new Foldout { value = expanded };
             foldout.style.marginBottom = 4;
 
-            // Header custom avec badge count
             var header = foldout.Q<Toggle>();
             if (header != null)
             {
@@ -311,7 +302,6 @@ namespace CollectionDebugger.Editor
             foldout.text = string.Empty;
             foldout.Q<Toggle>()?.Add(titleRow);
 
-            // Contenu avec fond légèrement différent
             foldout.contentContainer.style.backgroundColor = new Color(0.16f, 0.16f, 0.16f);
             foldout.contentContainer.style.borderBottomLeftRadius = 4;
             foldout.contentContainer.style.borderBottomRightRadius = 4;
