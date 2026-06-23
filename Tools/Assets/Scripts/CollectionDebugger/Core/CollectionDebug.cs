@@ -7,13 +7,14 @@ namespace CollectionDebugger.Core
     /// Allows registering collections to monitor and display them
     /// in the Unity editor window under "Tools/Collection Debugger".
     /// </summary>
-    public static class CollectionDebug
+    public static partial class CollectionDebug
     {
         private static readonly Dictionary<string, ICollectionWatch> Watches;
 
         static CollectionDebug()
         {
             Watches = new();
+            SnapshotWatches = new();
         }
 
         /// <summary>
